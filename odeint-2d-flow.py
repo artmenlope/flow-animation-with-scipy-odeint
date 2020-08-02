@@ -15,7 +15,9 @@ from scipy.integrate import odeint
 
 def acel_x(x, y):
     
-    """X-component of the acceleration vector."""
+    """
+    X-component of the acceleration vector.
+    """
     
     a_x = -np.cos(y)*np.sin(x)
     
@@ -24,7 +26,9 @@ def acel_x(x, y):
 
 def acel_y(x, y):
     
-    """Y-component of the acceleration vector."""
+    """
+    Y-component of the acceleration vector.
+    """
     
     a_y = -np.sin(y)*np.cos(x)
     
@@ -80,25 +84,25 @@ points = np.stack((X0, Y0), axis=-1).reshape((n**2,2))
 x0s = points[:,0] # Set of initial x-coordinates. 1D array.
 y0s = points[:,1] # Set of initial y-coordinates. 1D array.
 
-# Initial velocity components of the points.
+# Initial velocity components of the points. 1D arrays.
 vx0s = np.zeros(n**2)
 vy0s = np.zeros(n**2)
 
 tf = 50 # Final time value.
-dt = 0.1 # Time step.
+dt = 0.1 # Size of the time steps.
 t = np.arange(0, tf+dt, dt) # 1D array of time values.
-nt = len(t) # Number of time steps.
+nt = len(t) # Number of time values.
 
 # Create a 1D array of initial conditions for odeint. 
 initCond_aux = np.stack((x0s, vx0s, y0s, vy0s), axis=1) # Create a 2D Numpy array containing [xi, vxi, yi, vyi] in each row. See the Mechanics() function for more details.
 init_cond = np.reshape(initCond_aux, (4*n**2)) # Reshape initCond_aux to be of the form [x1, vx1, y1, vy1, x2, vx2, y2, vy2, ...].
 
-# We solve the position of all the dots at any given time.
+# We solve the position of all the dots at any time value of t.
 abserr = 1.0e-6
 relerr = 1.0e-4
 solutions = odeint(Mechanics, init_cond, t, args=(n,), atol=abserr, rtol=relerr)
 
-# Get the coordinates and velocities of the points at each time step.
+# Get the coordinates and velocities of the points at each time value.
 xs  = solutions.T[0::4]
 vxs = solutions.T[1::4]
 ys  = solutions.T[2::4]
@@ -113,7 +117,7 @@ ax.tick_params(axis='both',
                bottom=False,
                left=False, 
                labelbottom=False,
-               labelleft=False) # Hide the ticks of each axis.
+               labelleft=False) # Hide the ticks and tick labels of each axis.
 
 
 def anim(i):
@@ -124,23 +128,23 @@ def anim(i):
         """
         
         # Clear the axes elements (delete the points of the previous frame).
-        #ax.collections = []
-        #ax.artists = []
+        # ax.collections = []
+        # ax.artists = []
         ax.lines = []
         
         # Get the point coordinates at the present time step i.
         x = np.asarray(xs[:,i])
         y = np.asarray(ys[:,i])
         
-        # 'Plot with markers' is sometimes faster than a 'scatterplot'. 
+        # 'Plot with markers' is sometimes faster than a 'scatter plot'. 
         # See https://pybonacci.org/2014/09/09/microentrada-rendimiento-de-scatterplots-en-matplotlib/
         dots = ax.plot(x, y, 
                        color="black", 
                        alpha=1, 
                        linewidth=0,
                        marker="o",
-                       markersize=3#,
-                       #markerfacecolor="black"
+                       markersize=3 #,
+                       # markerfacecolor="black"
                        )
                     
         # Scatter alternative
