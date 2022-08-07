@@ -9,10 +9,11 @@ The following animation can be obtained using the default acceleration field def
 </p>
 
 The acceleration field that acts on each particle and generates the animation above is given by
-<!-- Note: For Latex formulas in Github's Markdown see https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b and the script at https://jsfiddle.net/8ndx694g/ -->
-<p align="center">
-<img src="https://render.githubusercontent.com/render/math?math=%5Cvec%7Ba%7D%3D(a_x%2Ca_y)%20%5C%3B%2C%20%5C%3B%5C%3B%0A%5Cbegin%7Bcases%7D%0A%0Aa_x%20%20%26%20%5C!%5C!%5C!%5C!%20%3D%20-%20%5Ccos(y)%20%5C%3B%20%5Csin(x)%20%5C%5C%5B1.8ex%5D%0Aa_y%20%20%26%20%5C!%5C!%5C!%5C!%20%3D%20-%20%5Csin(y)%20%5C%3B%20%5Ccos(x)%0A%5Cend%7Bcases%7D">
-</p>
+
+$$
+\vec{a} = (a_x, a_y)  \quad \longrightarrow \quad \begin{array}{c} a_x = -\cos(y)\sin(x)\\
+a_y=-\sin(y)\cos(x) \end{array}
+$$
 
 For the making of the [script](https://github.com/artmenlope/flow-animation-with-scipy-odeint/blob/master/odeint-2d-flow.py) the following references have been consulted:
 1. [Docs.scipy.org. 2020. _Scipy.Integrate.Odeint — Scipy V1.5.2 Reference Guide_. [online]](https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.odeint.html)
